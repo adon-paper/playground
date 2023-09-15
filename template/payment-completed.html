@@ -1,224 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
-
-        body {
-            font-family: "Lato", sans-serif;
-            padding: 25px 35px;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 20px;
-            line-height: 40px;
-            color: #133f5d;
-        }
-
-        td {
-            margin: 0;
-            padding: 0;
-        }
-
-        p {
-            margin: 0;
-            padding: 0;
-        }
-
-        table {
-            width: 100%;
-        }
-
-        hr {
-            margin-top: 1.5rem;
-            margin-bottom: 1.5rem;
-            border: 0;
-            border: 1px solid rgb(236, 239, 241);
-        }
-
-        b {
-            font-weight: bold;
-        }
-
-        #header-logo {
-            width: 150px;
-        }
-
-        #buyer-seller {
-            width: 100%;
-            line-height: 30px;
-        }
-
-        #amount-container {
-            margin: 20px 0;
-        }
-
-        #amount {
-            font-size: 27pt;
-            color: #4195d5;
-            margin: 10px 0;
-        }
-
-        #table-information {
-            padding: 0 35px;
-        }
-
-        .bold {
-            font-style: normal;
-            font-weight: 700;
-        }
-
-        .dimmed {
-            color: #4c6e84;
-        }
-
-        .blue {
-            color: #4195d5;
-        }
-
-        .draw {
-            background-color: #ffffff;
-        }
-
-        .light-blue {
-            color: #859cab;
-        }
-
-        .ta-r {
-            text-align: right;
-        }
-
-        .ta-l {
-            text-align: left;
-        }
-
-        .indent {
-            margin: 5px 28px;
-        }
-
-        .line-height {
-            line-height: 20px;
-        }
-    </style>
+    <!-- <link href="http://localhost:8080/assets/fonts/lato/font-lato.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://localhost:8080/assets/css/payment-completed.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-    <div class="container">
-        <!-- logo header -->
-        <center>
-            <img src="https://www.paper.id/img/paperlogofinal.svg" id="header-logo" width="150">
-        </center>
+    <!-- logo header -->
+    <center>
+        <img src="http://localhost:8080/assets/img/paper-logo.png" id="header-logo">
+    </center>
 
-        <!-- Buyer & Seller -->
-        <table id="buyer-seller">
-            <tr class="light-blue">
-                <td class="w-50">Pengirim</td>
-                <td class="ta-r">Penerima</td>
-            </tr>
-            <tr>
-                <td class="w-50"><b>{{.BuyerUserName}}</b></td>
-                <td class="ta-r"><b>{{.SellerCompanyName}}</b></td>
-            </tr>
-            <tr>
-                <td class="w-50">{{.BuyerCompanyName}}</td>
-                <td class="ta-r">{{if .SellerPhone}}+{{.SellerPhone}}{{else}}-{{end}}</td>
-            </tr>
-            <tr>
-                <td class="w-50">{{if .BuyerPhone}}+{{.BuyerPhone}}{{else}}-{{end}}</td>
-                <td class="ta-r"></td>
-            </tr>
-        </table>
+    <!-- Buyer & Seller -->
+    <table id="buyer-seller">
+        <tr class="light-blue">
+            <td class="w-50">Pengirim</td>
+            <td class="ta-r">Penerima</td>
+        </tr>
+        <tr>
+            <td class="w-50"><strong>{{.SellerName}}</strong></td>
+            <td class="ta-r"><strong>{{.BuyerUserName}}</strong></td>
+        </tr>
+        <tr>
+            <td class="w-50">{{.BuyerCompanyName}}</td>
+            <td class="ta-r">{{if .SellerPhone}}+{{.SellerPhone}}{{else}}-{{end}}</td>
+        </tr>
+        <tr>
+            <td class="w-50">{{if .BuyerPhone}}+{{.BuyerPhone}}{{else}}-{{end}}</td>
+            <td class="ta-r"></td>
+        </tr>
+    </table>
 
-        <hr>
+    <hr>
 
-        <div id="payment-information">
-            <!-- Amount & Estimation Disbursement -->
-            <p style="text-align: justify;">
-                Dana telah diterima oleh Paper.id, dan akan kami proses untuk diteruskan ke rekening penerima tercantum:
-            </p>
+    <div id="payment-information">
+        <!-- Amount & Estimation Disbursement -->
+        <p style="text-align: justify;">
+            Dana telah diterima oleh Paper.id, dan akan kami proses untuk diteruskan ke rekening penerima tercantum:
+        </p>
 
-            <div id="amount-container">
-                <center>
-                    <p class="light-blue">Nominal Transaksi</p>
-                    <p id="amount"><b>Rp {{.Amount}}</b></p>
-                    <p>(Estimasi dana diteruskan <b>{{.DisbursementEstimationTime}} WIB</b>)</p>
-                </center>
-            </div>
-
-
-            <!-- Payment Information -->
-            <table id="table-information">
-                <tr>
-                    <td class="w-50 ta-l light-blue">Nama Rekening Penerima</td>
-                    <td class="w-50 ta-r dark-blue">
-                        <p class="spacing-0 ta-r dark-blue">
-                            <b class="ta-r dark-blue">{{.BankAccountName}}</b>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="w-50 ta-l light-blue">Bank Penerima</td>
-                    <td class="w-50 ta-r dark-blue">
-                        <p class="spacing-0 ta-r dark-blue">{{.BankName}}</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="w-50 ta-l light-blue">No. Rekening Penerima</td>
-                    <td class="w-50 ta-r dark-blue">{{.BankAccountNumber}}</td>
-                </tr>
-                <tr>
-                    <td class="w-50 ta-l light-blue">Nama Rekening Pengirim
-                    </td>
-                    <td class="w-50 ta-r dark-blue">
-                        <p class="spacing-0 ta-r dark-blue">PT Pakar Digital Global</p>
-                    </td>
-                </tr>
-                <tr class="w-100 spacing-0 line-height">
-                    <td class="w-50 ta-l light-blue"></td>
-                    <td class="w-50 ta-r dark-blue">
-                        <p class="light-blue spacing-0 ta-r">
-                            a/n {{.BuyerCompanyName}}
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="w-50 ta-l light-blue">
-                        Tanggal Pembayaran
-                    </td>
-                    <td class="w-50 ta-r dark-blue">
-                        <p class="spacing-0 ta-r dark-blue">
-                            {{.PaymentDate}}
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="w-50 ta-l light-blue">No. Referensi</td>
-                    <td class="w-50 ta-r dark-blue">
-                        <p class="spacing-0 ta-r dark-blue">
-                            {{.ExternalID}}
-                        </p>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <hr>
-
-        <div id="other-information">
-            <!-- Notes & Others Information -->
-            <p class="lighter-blue">Berita Acara</p>
-            <p style="text-align: justify;">{{.ReferenceNote}}</p>
-            <p class="lighter-blue" style="font-size:13px;">
-                <i>*Bukti pembayaran telah dikirimkan secara otomatis kepada pengirim dan penerima.</i>
-            </p>
-        </div>
-
-        <hr>
-
-        <div id="footer">
-            <center style="margin-top: 10px;">
-                <p class="lighter-blue">
-                    Paper.id - Platform Solusi Pembayaran B2B No.1 di Indonesia
-                </p>
+        <div id="amount-container">
+            <center>
+                <p class="light-blue">Nominal Transaksi</p>
+                <p id="amount"><strong>Rp {{.Amount}}</strong></p>
+                <p>(Estimasi dana diteruskan <strong>{{.DisbursementEstimationTime}} WIB</strong>)</p>
             </center>
         </div>
+
+
+        <!-- Payment Information -->
+        <table id="table-information">
+            <tr>
+                <td class="w-50 ta-l light-blue">Nama Rekening Penerima</td>
+                <td class="w-50 ta-r dark-blue">
+                    <p class="spacing-0 ta-r dark-blue">
+                        <strong class="ta-r dark-blue">{{.BankAccountName}}</strong>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td class="w-50 ta-l light-blue">Bank Penerima</td>
+                <td class="w-50 ta-r dark-blue">
+                    <p class="spacing-0 ta-r dark-blue">{{.BankName}}</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="w-50 ta-l light-blue">No. Rekening Penerima</td>
+                <td class="w-50 ta-r dark-blue">
+                    {{.BankAccountNumber}}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-50 ta-l light-blue">Nama Rekening Pengirim
+                </td>
+                <td class="w-50 ta-r dark-blue">
+                    <p class="spacing-0 ta-r dark-blue">PT Pakar Digital Global</p>
+                </td>
+            </tr>
+            <tr class="w-100 spacing-0 line-height">
+                <td class="w-50 ta-l light-blue"></td>
+                <td class="w-50 ta-r dark-blue">
+                    <p class="light-blue spacing-0 ta-r">
+                        a/n {{.BuyerCompanyName}}
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td class="w-50 ta-l light-blue">
+                    Tanggal Pembayaran
+                </td>
+                <td class="w-50 ta-r dark-blue">
+                    <p class="spacing-0 ta-r dark-blue">
+                        {{.PaymentDate}}
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td class="w-50 ta-l light-blue">No. Referensi</td>
+                <td class="w-50 ta-r dark-blue">
+                    <p class="spacing-0 ta-r dark-blue">
+                        {{.ExternalID}}
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <hr>
+
+    <div id="other-information">
+        <!-- Notes & Others Information -->
+        <p style="color: #859CAB; font-family: 'lato';">
+            Berita Acara
+        </p>
+        <p style="color: #133F5D; text-align: justify; font-family: 'lato';">
+            {{.ReferenceNote}}
+        </p>
+        <p class="lighter-blue" style="font-size:13px;">
+            <i>
+                *Bukti pembayaran telah dikirimkan secara otomatis kepada pengirim dan penerima.
+            </i>
+        </p>
+    </div>
+
+    <hr style="border: 1px solid rgba(212, 218, 222, 1);">
+
+    <div id="footer">
+        <center style="margin-top: 10px;">
+            <p class="lighter-blue">
+                Paper.id - Platform Solusi Pembayaran B2B No.1 di Indonesia
+            </p>
+        </center>
     </div>
 </body>
+
+</html>
