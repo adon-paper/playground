@@ -100,7 +100,7 @@ func (r *RequestPdf) GeneratePDF(pdfPath string) (bool, error) {
 		log.Fatal(err)
 	}
 	page := wkhtmltopdf.NewPageReader(f)
-	page.PageOptions.EnableLocalFileAccess.Set(true)
+	// page.PageOptions.EnableLocalFileAccess.Set(true)
 	pdfg.AddPage(page)
 	pdfg.PageSize.Set(r.size)
 	pdfg.Orientation.Set(r.orientation)
